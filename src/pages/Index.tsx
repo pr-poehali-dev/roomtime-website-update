@@ -23,6 +23,11 @@ const Index = () => {
     { name: "Мажор", price: 2650, emoji: "👾", description: "Описание привилегии Мажор" },
   ];
 
+  const cases = [
+    { name: "Кейс с донатом", price: 20, emoji: "🎁", description: "Открой кейс и получи случайную привилегию! Шанс выпадения редких донатов увеличен!" },
+    { name: "Кейс с токенами", price: 7, emoji: "💰", description: "Открой кейс и получи случайное количество токенов от 5 до 50! Попробуй свою удачу!" },
+  ];
+
   const handleBuyClick = (privilege: any) => {
     setSelectedPrivilege(privilege);
     setNickname("");
@@ -34,7 +39,11 @@ const Index = () => {
     }
   };
 
-  const creators = ["IIoneR", "umQKoKiq", "TukeInside"];
+  const teamMembers = {
+    creator: ["umQKoKiq"],
+    admins: ["_no_ezz_xaxa_"],
+    betaTesters: ["Kristallik_mal"]
+  };
 
   return (
     <div className="min-h-screen bg-[#0d0d0d] relative overflow-hidden">
@@ -205,27 +214,100 @@ const Index = () => {
           </div>
         </section>
 
+        <section className="mb-16">
+          <div className="text-center mb-10">
+            <h2 className="text-5xl md:text-6xl font-black mb-3 bg-gradient-to-r from-[#fc9700] to-[#fccc00] bg-clip-text text-transparent" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+              🎲 КЕЙСЫ 🎲
+            </h2>
+            <p className="text-lg text-gray-400">Испытай свою удачу!</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {cases.map((caseItem) => (
+              <div key={caseItem.name} className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300" />
+                <Card className="relative p-8 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] border-2 border-[#fc9700]/40 rounded-xl hover:scale-105 transition-all duration-300 shadow-2xl">
+                  <div className="flex flex-col items-center text-center">
+                    <div className="text-7xl mb-4 animate-bounce">{caseItem.emoji}</div>
+                    <h3 className="text-3xl font-black mb-3 text-white drop-shadow-lg" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                      {caseItem.name}
+                    </h3>
+                    <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+                      {caseItem.description}
+                    </p>
+                    <div className="w-full h-px bg-[#fc9700]/30 my-4" />
+                    <p className="text-5xl font-black bg-gradient-to-r from-[#fc9700] to-[#fccc00] bg-clip-text text-transparent mb-6 drop-shadow-lg" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                      {caseItem.price}₽
+                    </p>
+                    <Button 
+                      onClick={() => handleBuyClick(caseItem)}
+                      className="w-full bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] hover:from-[#fc9700]/90 hover:to-[#fc1a1a]/90 text-white font-black text-lg py-6 rounded-lg shadow-[0_0_20px_rgba(252,151,0,0.5)] hover:shadow-[0_0_30px_rgba(252,151,0,0.7)] transition-all"
+                    >
+                      КУПИТЬ КЕЙС
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <footer className="mt-20 pb-10">
           <div className="relative">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-xl blur-sm opacity-30" />
             <div className="relative bg-[#141414] border border-[#fc9700]/30 rounded-xl p-8 text-center">
-              <h3 className="text-4xl font-black mb-6 bg-gradient-to-r from-[#fc9700] to-[#fccc00] bg-clip-text text-transparent" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                ⚡ СОЗДАТЕЛИ СЕРВЕРА ⚡
+              <h3 className="text-4xl font-black mb-8 bg-gradient-to-r from-[#fc9700] to-[#fccc00] bg-clip-text text-transparent" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                ⚡ КОМАНДА СЕРВЕРА ⚡
               </h3>
-              <div className="flex flex-wrap gap-4 justify-center mb-6">
-                {creators.map((creator) => (
-                  <div 
-                    key={creator}
-                    className="relative group"
-                  >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-lg blur-sm opacity-0 group-hover:opacity-75 transition" />
-                    <div className="relative px-6 py-3 bg-gradient-to-r from-[#fc9700]/10 to-[#fc1a1a]/10 border border-[#fc9700]/40 rounded-lg hover:border-[#fc9700]/80 transition-all">
-                      <p className="text-xl font-black text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                        {creator}
-                      </p>
-                    </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-[#fc9700] uppercase tracking-wider mb-3 font-bold">👑 Создатель сервера</p>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {teamMembers.creator.map((member) => (
+                      <div key={member} className="relative group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-lg blur-sm opacity-0 group-hover:opacity-75 transition" />
+                        <div className="relative px-6 py-3 bg-gradient-to-r from-[#fc9700]/10 to-[#fc1a1a]/10 border border-[#fc9700]/40 rounded-lg hover:border-[#fc9700]/80 transition-all">
+                          <p className="text-xl font-black text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                            {member}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                <div>
+                  <p className="text-sm text-[#fc9700] uppercase tracking-wider mb-3 font-bold">🛡️ Админы сервера</p>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {teamMembers.admins.map((member) => (
+                      <div key={member} className="relative group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-lg blur-sm opacity-0 group-hover:opacity-75 transition" />
+                        <div className="relative px-6 py-3 bg-gradient-to-r from-[#fc9700]/10 to-[#fc1a1a]/10 border border-[#fc9700]/40 rounded-lg hover:border-[#fc9700]/80 transition-all">
+                          <p className="text-xl font-black text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                            {member}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm text-[#fc9700] uppercase tracking-wider mb-3 font-bold">⭐ Бета тестеры</p>
+                  <div className="flex flex-wrap gap-3 justify-center">
+                    {teamMembers.betaTesters.map((member) => (
+                      <div key={member} className="relative group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-lg blur-sm opacity-0 group-hover:opacity-75 transition" />
+                        <div className="relative px-6 py-3 bg-gradient-to-r from-[#fc9700]/10 to-[#fc1a1a]/10 border border-[#fc9700]/40 rounded-lg hover:border-[#fc9700]/80 transition-all">
+                          <p className="text-xl font-black text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                            {member}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
               <div className="mt-8 pt-6 border-t border-[#fc9700]/20">
                 <p className="text-gray-500 font-medium">
