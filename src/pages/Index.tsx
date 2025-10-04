@@ -1,23 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
 
 const Index = () => {
+  const [selectedPrivilege, setSelectedPrivilege] = useState<any>(null);
+  const [nickname, setNickname] = useState("");
+
   const privileges = [
-    { name: "Барон", price: 10, emoji: "⚔️" },
-    { name: "Страж", price: 16, emoji: "🛡️" },
-    { name: "Герой", price: 24, emoji: "⭐" },
-    { name: "Аспид", price: 56, emoji: "🐉" },
-    { name: "Сквид", price: 69, emoji: "🦑" },
-    { name: "Глава", price: 87, emoji: "👑" },
-    { name: "Элита", price: 149, emoji: "💎" },
-    { name: "Титан", price: 239, emoji: "⚡" },
-    { name: "Принц", price: 329, emoji: "🔱" },
-    { name: "Князь", price: 549, emoji: "🏆" },
-    { name: "Герцог", price: 999, emoji: "💫" },
-    { name: "Спонсор", price: 1850, emoji: "🌟" },
-    { name: "Мажор", price: 2650, emoji: "👾" },
+    { name: "Барон", price: 10, emoji: "⚔️", description: "Описание привилегии Барон" },
+    { name: "Страж", price: 16, emoji: "🛡️", description: "Описание привилегии Страж" },
+    { name: "Герой", price: 24, emoji: "⭐", description: "Описание привилегии Герой" },
+    { name: "Аспид", price: 56, emoji: "🐉", description: "Описание привилегии Аспид" },
+    { name: "Сквид", price: 69, emoji: "🦑", description: "Описание привилегии Сквид" },
+    { name: "Глава", price: 87, emoji: "👑", description: "Описание привилегии Глава" },
+    { name: "Элита", price: 149, emoji: "💎", description: "Описание привилегии Элита" },
+    { name: "Титан", price: 239, emoji: "⚡", description: "Описание привилегии Титан" },
+    { name: "Принц", price: 329, emoji: "🔱", description: "Описание привилегии Принц" },
+    { name: "Князь", price: 549, emoji: "🏆", description: "Описание привилегии Князь" },
+    { name: "Герцог", price: 999, emoji: "💫", description: "Описание привилегии Герцог" },
+    { name: "Спонсор", price: 1850, emoji: "🌟", description: "Описание привилегии Спонсор" },
+    { name: "Мажор", price: 2650, emoji: "👾", description: "Описание привилегии Мажор" },
   ];
+
+  const handleBuyClick = (privilege: any) => {
+    setSelectedPrivilege(privilege);
+    setNickname("");
+  };
+
+  const handlePurchase = () => {
+    if (nickname.trim()) {
+      window.open("https://funpay.com/users/16724676/", "_blank");
+    }
+  };
 
   const creators = ["IIoneR", "umQKoKiq", "TukeInside"];
 
@@ -93,6 +108,16 @@ const Index = () => {
                 Discord сервер
               </a>
             </Button>
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-[#FF0000] hover:bg-[#FF0000]/90 text-white font-bold px-6 py-5 rounded-lg shadow-lg hover:shadow-xl transition-all"
+            >
+              <a href="https://youtube.com/@lololoshkafixplay?si=HUfx9dOGnah-yenD" target="_blank" rel="noopener noreferrer">
+                <Icon name="Youtube" className="mr-2" size={20} />
+                YouTube канал
+              </a>
+            </Button>
           </div>
         </header>
 
@@ -166,7 +191,10 @@ const Index = () => {
                       <p className="text-4xl font-black text-white mb-4 drop-shadow-lg" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                         {privilege.price}₽
                       </p>
-                      <Button className="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/40 font-black text-base py-5 rounded-lg shadow-lg">
+                      <Button 
+                        onClick={() => handleBuyClick(privilege)}
+                        className="w-full bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border border-white/40 font-black text-base py-5 rounded-lg shadow-lg"
+                      >
                         КУПИТЬ
                       </Button>
                     </div>
@@ -208,6 +236,66 @@ const Index = () => {
           </div>
         </footer>
       </div>
+
+      {selectedPrivilege && (
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedPrivilege(null)}
+        >
+          <div 
+            className="relative max-w-md w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] rounded-2xl blur opacity-75" />
+            <div className="relative bg-[#141414] border-2 border-[#fc9700]/50 rounded-2xl p-8">
+              <button 
+                onClick={() => setSelectedPrivilege(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              >
+                <Icon name="X" size={24} />
+              </button>
+
+              <div className="text-center mb-6">
+                <div className="text-6xl mb-4">{selectedPrivilege.emoji}</div>
+                <h3 className="text-3xl font-black text-white mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                  {selectedPrivilege.name}
+                </h3>
+                <p className="text-5xl font-black bg-gradient-to-r from-[#fc9700] to-[#fccc00] bg-clip-text text-transparent mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                  {selectedPrivilege.price}₽
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <p className="text-sm text-gray-400 uppercase tracking-wider mb-2 font-bold">Описание привилегии:</p>
+                <p className="text-white text-base leading-relaxed">
+                  {selectedPrivilege.description}
+                </p>
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-sm text-gray-400 uppercase tracking-wider mb-2 font-bold">
+                  Введите ваш ник:
+                </label>
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  placeholder="Ваш игровой ник"
+                  className="w-full bg-[#0d0d0d] border-2 border-[#fc9700]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-[#fc9700] focus:outline-none transition-colors"
+                />
+              </div>
+
+              <Button
+                onClick={handlePurchase}
+                disabled={!nickname.trim()}
+                className="w-full bg-gradient-to-r from-[#fc9700] to-[#fc1a1a] hover:from-[#fc9700]/90 hover:to-[#fc1a1a]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-black text-lg py-6 rounded-lg shadow-[0_0_20px_rgba(252,151,0,0.5)] hover:shadow-[0_0_30px_rgba(252,151,0,0.7)] transition-all"
+              >
+                КУПИТЬ НА FUNPAY
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
